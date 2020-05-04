@@ -90,9 +90,17 @@ ballot_t read_ballot(FILE* inf)
 
 void clean_name(char* name)
 {
-    //
-    // TODO: your code here
-    //
+    size_t src = 0;
+    size_t dst = 0;
+    while (name[src] != 0){
+        if (isalph(name[src]) != 0){
+            name[dst] = toupper(name[src]);
+            dst = dst + 1;
+            src = src + 1;
+        } else
+            src = src + 1;
+        }
+    name[dst] = 0;
 }
 
 void print_ballot(FILE* outf, ballot_t ballot)
