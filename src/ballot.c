@@ -62,15 +62,6 @@ void ballot_insert(ballot_t ballot, char* name)
     }
 
 
-
-const char* ballot_leader(ballot_t ballot)
-{
-    //
-    // TODO: replace with your code:
-    //
-    return NULL;
-}
-
 //probs won't run
 const char* ballot_leader(ballot_t ballot)
 {
