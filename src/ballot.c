@@ -49,16 +49,18 @@ void ballot_destroy(ballot_t ballot)
 }
 
 
+//still not running:'(
 void ballot_insert(ballot_t ballot, char* name)
 {
-    if (ballot->length < MAX_CANDIDATES)
+    size_t len= ballot->length;
+    if (len < MAX_CANDIDATES)
     {
 
-    ballot->entries[ballot->length +1]=clean_name(name);
+        ballot->entries[len]->name=clean_name(name);
     } else {
         exit(3);
     }
-}
+
 
 
 const char* ballot_leader(ballot_t ballot)
@@ -75,9 +77,8 @@ const char* ballot_leader(ballot_t ballot)
     size_t i=0;
     while(i< ballot->length)
     {
-        if(ballot->entries[i]->active)
+        if(ballot->entries[i].active)
         {
-            return ballot->entries[i]->name;
         }
     }
     return NULL;
