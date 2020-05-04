@@ -69,6 +69,21 @@ const char* ballot_leader(ballot_t ballot)
     return NULL;
 }
 
+//probs won't run
+const char* ballot_leader(ballot_t ballot)
+{
+    size_t i=0;
+    while(i< ballot->length)
+    {
+        if(ballot->entries[i]->active)
+        {
+            return ballot->entries[i]->name;
+        }
+    }
+    return NULL;
+}
+
+
 void ballot_eliminate(ballot_t ballot, const char* name)
 {
     //
