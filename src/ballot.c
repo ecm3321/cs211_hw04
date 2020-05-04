@@ -48,12 +48,18 @@ void ballot_destroy(ballot_t ballot)
    free(ballot);
 }
 
+
 void ballot_insert(ballot_t ballot, char* name)
 {
-    //
-    // TODO: your code here
-    //
+    if (ballot->length < MAX_CANDIDATES)
+    {
+
+    ballot->entries[ballot->length +1]=clean_name(name);
+    } else {
+        exit(3);
+    }
 }
+
 
 const char* ballot_leader(ballot_t ballot)
 {
