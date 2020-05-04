@@ -38,17 +38,14 @@ struct ballot
 
 ballot_t ballot_create(void)
 {
-    //
-    // TODO: replace with your code:
-    //
-    return NULL;
+    ballot_t result = malloc(sizeof(struct ballot));
+    if (!result) exit(2);
+    return result;
 }
 
 void ballot_destroy(ballot_t ballot)
 {
-    //
-    // TODO: your code here
-    //
+   free(ballot);
 }
 
 void ballot_insert(ballot_t ballot, char* name)
