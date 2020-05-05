@@ -38,12 +38,21 @@ struct ballot
 
 ballot_t ballot_create(void)
 {
-    ballot_t result = malloc(sizeof(struct ballot));
-    if (!result) exit(2);
+    //
+     size_t i= 0;
+
+    ballot_t result= malloc(sizeof(struct ballot));
+    if (!result){
+        exit(2);
+    }
+    result->length=0;
+
     return result;
+    // //
+
 }
 
-//probably not correct idk why i decided to free name and nothing else...but its closer?
+
 void ballot_destroy(ballot_t ballot)
 {
     if(ballot == NULL)
@@ -62,34 +71,49 @@ void ballot_destroy(ballot_t ballot)
 }
 
 
+
+
 void ballot_insert(ballot_t ballot, char* name)
 {
+
     size_t len= ballot->length;
     if (len < MAX_CANDIDATES)
     {
         clean_name(name);
-
+        ballot->entries[len].active = true;
+        ballot->length+=1;
         ballot->entries[len].name=name;
 
     } else {
         exit(3);
     }
+
 }
 
 
 
-//probs won't run
+
 const char* ballot_leader(ballot_t ballot)
 {
+    //
     size_t i=0;
     while(i< ballot->length)
     {
         if(ballot->entries[i].active)
         {
+            return ballot->entries[i].name;
+        } else {
+
+            return NULL;
         }
+        i=i+1;
+
     }
+
+    //
     return NULL;
 }
+
 
 
 void ballot_eliminate(ballot_t ballot, const char* name)
