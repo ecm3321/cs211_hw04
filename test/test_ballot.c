@@ -82,6 +82,10 @@ static void test_ballot_with_vc(void)
 {
     //
     ballot_t ballot= ballot_create();
+    assert(ballot);
+
+    CHECK_POINTER(ballot_leader(ballot), NULL);
+    
     ballot_insert(ballot, strdupb("A", "test_ballot"));//idk what strdupb is doing
     ballot_insert(ballot, strdupb("B", "test_ballot"));
     ballot_insert(ballot, strdupb("C", "test_ballot"));
@@ -109,7 +113,12 @@ static void test_ballot_with_vc(void)
     ballot_eliminate(ballot, "C");
 
     count_ballot(count, ballot);
-    //prove count has no affect, but idk what values should be
+    CHECK_SIZE(vc_lookup(count,"A"), 3 );
+    CHECK_SIZE(vc_lookup(count,"B"), 0 );
+    CHECK_SIZE(vc_lookup(count,"C"), 1 );
+
+    vc_destroy(count);
+    ballot_destroy(ballot);
 }
 
 
