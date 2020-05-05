@@ -130,9 +130,18 @@ void ballot_eliminate(ballot_t ballot, const char* name)
 
 void count_ballot(vote_count_t vc, ballot_t ballot)
 {
-    //
-    // TODO: your code here
-    //
+    size_t i = 0;
+    size_t len = ballot->length;
+    while(i < len){
+        if(ballot->entries[i].active){
+            size_t* first = vc_update(vc, ballot->entries[i].name);
+            if (first == NULL){
+                exit(4);
+            }
+            *first = *first + 1;
+        }
+        i = i + 1;
+    }
 }
 
 ballot_t read_ballot(FILE* inf)
