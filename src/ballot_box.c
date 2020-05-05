@@ -44,20 +44,19 @@ ballot_box_t read_ballot_box(FILE* inf)
     return empty_ballot_box;
 }
 
+//if this doesn't work, try bb_node* current=bb
 vote_count_t bb_count(ballot_box_t bb)
 {
-   vote_count_t result = vc_create();
+    vote_count_t result = vc_create();
+     while(bb->next !=NULL){
+        count_ballot(result, bb->ballot);
+        bb=bb->next;
 
-    while (i < MAX_CANDIDATES){                                              
-        if(bb->next != NULL){
-            count_ballot(result, bb->ballot);
-            bb_count(bb->next);
-        } else {
-            count_ballot(result, bb->ballot);
-        }
-      }
+    }
     return result;
+    vc_destroy(result);
 }
+
 
 void bb_eliminate(ballot_box_t bb, const char* candidate)
 {
