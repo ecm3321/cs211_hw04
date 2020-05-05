@@ -95,22 +95,14 @@ void ballot_insert(ballot_t ballot, char* name)
 
 const char* ballot_leader(ballot_t ballot)
 {
-    //
-    size_t i=0;
-    while(i< ballot->length)
-    {
-        if(ballot->entries[i].active)
-        {
+    size_t i = 0;
+    size_t len = ballot->length;
+    while(i < len){
+        if(ballot->entries[i].active){
             return ballot->entries[i].name;
-        } else {
-
-            return NULL;
         }
-        i=i+1;
-
+        i = i + 1;
     }
-
-    //
     return NULL;
 }
 
