@@ -43,10 +43,24 @@ ballot_t ballot_create(void)
     return result;
 }
 
+//probably not correct idk why i decided to free name and nothing else...but its closer?
 void ballot_destroy(ballot_t ballot)
 {
-   free(ballot);
+    if(ballot == NULL)
+    {
+        free(ballot);
+    } else {
+        size_t i=0;
+        while (i < ballot->length) {
+            free(ballot->entries[i].name);
+        i = i + 1;
+        }
+        free(ballot);
+    }
+
+    //need to free individual names
 }
+
 
 void ballot_insert(ballot_t ballot, char* name)
 {
