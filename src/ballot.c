@@ -48,18 +48,20 @@ void ballot_destroy(ballot_t ballot)
    free(ballot);
 }
 
-
-//still not running:'(
 void ballot_insert(ballot_t ballot, char* name)
 {
     size_t len= ballot->length;
     if (len < MAX_CANDIDATES)
     {
+        clean_name(name);
 
-        ballot->entries[len]->name=clean_name(name);
+        ballot->entries[len].name=name;
+
     } else {
         exit(3);
     }
+}
+
 
 
 //probs won't run
