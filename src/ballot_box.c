@@ -57,9 +57,12 @@ vote_count_t bb_count(ballot_box_t bb)
 
 void bb_eliminate(ballot_box_t bb, const char* candidate)
 {
-    //
-    // TODO: your code here
-    //
+    if(bb->next != NULL){
+        ballot_eliminate(bb->ballot, candidate);
+        bb_eliminate(bb->next, candidate);
+    } else {
+        ballot_eliminate(bb->ballot, candidate);
+    }
 }
 
 char* get_irv_winner(ballot_box_t bb)
