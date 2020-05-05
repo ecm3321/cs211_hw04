@@ -120,21 +120,21 @@ void ballot_eliminate(ballot_t ballot, const char* name)
     }
 }
 
+
 void count_ballot(vote_count_t vc, ballot_t ballot)
 {
-    size_t i = 0;
-    size_t len = ballot->length;
-    while(i < len){
-        if(ballot->entries[i].active){
-            size_t* first = vc_update(vc, ballot->entries[i].name);
-            if (first == NULL){
-                exit(4);
-            }
-            *first = *first + 1;
+    const char* leader= ballot_leader(ballot);
+    if(leader != NULL)
+    {
+        size_t* cp = vc_update(vc,leader);
+        if( cp == NULL){
+            exit(4);
         }
-        i = i + 1;
+        ++*cp;
+
     }
 }
+
 
 ballot_t read_ballot(FILE* inf)
 {
