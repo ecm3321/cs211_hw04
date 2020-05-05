@@ -38,11 +38,14 @@ void bb_insert(ballot_box_t* bbp, ballot_t ballot)
 
 ballot_box_t read_ballot_box(FILE* inf)
 {
-    //
-    // TODO: replace with your code:
-    //
-    return empty_ballot_box;
+    ballot_t line;
+    ballot_box_t bb=empty_ballot_box;
+    while((line=read_ballot(inf)) != NULL){
+        bb_insert(&bb,line);
+    }
+    return bb;
 }
+
 
 //if this doesn't work, try bb_node* current=bb
 vote_count_t bb_count(ballot_box_t bb)
