@@ -118,9 +118,14 @@ const char* ballot_leader(ballot_t ballot)
 
 void ballot_eliminate(ballot_t ballot, const char* name)
 {
-    //
-    // TODO: your code here
-    //
+    size_t i = 0;
+    size_t len = ballot->length;
+    while(i < len && ballot->entries[i].name != NULL && name!= NULL){
+        if(strcmp(name, ballot->entries[i].name)== 0){
+                ballot->entries[i].active = false;
+        }
+        i = i + 1;
+    }
 }
 
 void count_ballot(vote_count_t vc, ballot_t ballot)
