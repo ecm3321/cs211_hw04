@@ -46,12 +46,16 @@ ballot_box_t read_ballot_box(FILE* inf)
 
 vote_count_t bb_count(ballot_box_t bb)
 {
-    vote_count_t result = vc_create();
+   vote_count_t result = vc_create();
 
-    //
-    // TODO: your code here
-    //
-
+    while (i < MAX_CANDIDATES){                                              
+        if(bb->next != NULL){
+            count_ballot(result, bb->ballot);
+            bb_count(bb->next);
+        } else {
+            count_ballot(result, bb->ballot);
+        }
+      }
     return result;
 }
 
