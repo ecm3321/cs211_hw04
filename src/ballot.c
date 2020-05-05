@@ -146,9 +146,17 @@ void count_ballot(vote_count_t vc, ballot_t ballot)
 
 ballot_t read_ballot(FILE* inf)
 {
-    //
-    // TODO: replace with your code:
-    //
+   ballot_t bal = ballot_create();
+    char* line;
+    while ((line = fread_line(inf)) != NULL){
+        if(*line == '%'){
+            free(line);
+        } else {
+            clean_name(line);
+            ballot_insert(bal, line);
+            free(line);
+        }
+    }
     return NULL;
 }
 
