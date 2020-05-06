@@ -72,6 +72,18 @@ static void example_from_wikipedia(void)
             "bob", "bill", "sue", "%",
             "sue", "bob", "bill", "%",
             NULL);
+            assert_election("CAMPBELL",
+                    "abbott", "Borden", "Campbell", "%",
+                    "campbell", "abbott", "borden", "%",
+                    "borden", "campbell", "abbott", "%",
+                    "abbott", "Borden", "campbell", "%",
+                    "Campbell", "abbotT", "borden", "%",
+                    NULL);
+    assert_election("B",
+                    "a", "b", "c", "%",
+                    "a", "b", "c", "%",
+                    "b", "c", "%",
+            NULL);
 }
 
 
