@@ -90,3 +90,27 @@ char* get_irv_winner(ballot_box_t bb)
 
     return result;
 }
+
+//Katy's version (backup)
+char* get_irv_winner(ballot_box_t bb)
+{
+    //
+    vote_count_t result= bb_count(bb);
+    if (result == NULL){
+        return NULL;
+        vc_destroy(result);
+    }
+
+    while(vc_lookup(result,vc_max(result)) <= (vc_total(result)/2.0))
+    {
+        bb_eliminate(bb, vc_min(result));
+           //eliminate min
+           //destroy old
+        vc_destroy(result);
+        result = bb_count(bb);
+    }
+    const char* str= vc_max(result);
+    char* winner = strdupb(str,"get_irv_winner");
+    vc_destroy(result);
+    return winner;
+}
