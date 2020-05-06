@@ -80,46 +80,42 @@ static void test_ballot(void)
 
 static void test_ballot_with_vc(void)
 {
-    //
     ballot_t ballot= ballot_create();
-    assert(ballot);
-
-    CHECK_POINTER(ballot_leader(ballot), NULL);
-    
-    ballot_insert(ballot, strdupb("A", "test_ballot"));//idk what strdupb is doing
+    ballot_insert(ballot, strdupb("A", "test_ballot"));
     ballot_insert(ballot, strdupb("B", "test_ballot"));
     ballot_insert(ballot, strdupb("C", "test_ballot"));
 
     vote_count_t count = vc_create();
     count_ballot(count,ballot);
     CHECK_SIZE(vc_lookup(count,"A"), 1 );
-    CHECK_SIZE(vc_lookup(count,"B"), 0 );//error, should be one zero for B and C
+    CHECK_SIZE(vc_lookup(count,"B"), 0 );
     CHECK_SIZE(vc_lookup(count,"C"), 0 );
 
     count_ballot(count, ballot);
-    CHECK_SIZE(vc_lookup(count,"A"), 2 );//confusing instructions,may b wrong nums
+    CHECK_SIZE(vc_lookup(count,"A"), 2 );
     CHECK_SIZE(vc_lookup(count,"B"), 0 );
     CHECK_SIZE(vc_lookup(count,"C"), 0 );
 
     ballot_eliminate(ballot, "B");
     count_ballot(count, ballot);
-    CHECK_SIZE(vc_lookup(count,"A"), 3 );//definitley correct nums here
+    CHECK_SIZE(vc_lookup(count,"A"), 3 );
     CHECK_SIZE(vc_lookup(count,"B"), 0 );
     CHECK_SIZE(vc_lookup(count,"C"), 0 );
 
     ballot_eliminate(ballot, "A");
     count_ballot(count, ballot);
-    CHECK_SIZE(vc_lookup(count,"C"), 1 );//confirm 1st vote for c
+    CHECK_SIZE(vc_lookup(count,"C"), 1 );
     ballot_eliminate(ballot, "C");
 
     count_ballot(count, ballot);
+    CHECK_SIZE(vc_lookup(count,"C"), 1 );
     CHECK_SIZE(vc_lookup(count,"A"), 3 );
     CHECK_SIZE(vc_lookup(count,"B"), 0 );
-    CHECK_SIZE(vc_lookup(count,"C"), 1 );
-
-    vc_destroy(count);
     ballot_destroy(ballot);
+    vc_destroy(count);
+
 }
+
 
 
 
