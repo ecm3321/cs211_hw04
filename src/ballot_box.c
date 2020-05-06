@@ -20,13 +20,16 @@ const ballot_box_t empty_ballot_box = NULL;
 
 void bb_destroy(ballot_box_t bb)
 {
-    if(bb->next != NULL){
-        ballot_destroy(bb->ballot);
-        bb_destroy(bb->next);
-    } else {
-        ballot_destroy(bb->ballot);
+    ballot_box_t current=bb;
+    while (current != NULL)
+    {
+        ballot_destroy(current->ballot);
+        ballot_box_t next = current->next;
+        free(current);
+        current = next;
     }
 }
+
 
 void bb_insert(ballot_box_t* bbp, ballot_t ballot)
 {
