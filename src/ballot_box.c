@@ -73,8 +73,17 @@ void bb_eliminate(ballot_box_t bb, const char* candidate)
 
 char* get_irv_winner(ballot_box_t bb)
 {
-    //
-    // TODO: replace with your code:
-    //
-    return strdupb("FIXME", "get_irv_winner");
+    char* result = NULL;
+    vote_count_t map = vc_create();
+    map = bb_count(bb);
+    if(vc_lookup(map, vc_max(map)) > (vc_total(map) * 0.5)){
+        result = strdupb(vc_max(map), "get_irv_winner");
+        vc_destroy(map);
+    } else {
+        bb_eliminate(bb, vc_min(map));
+        vc_destroy(map);
+        result = get_irv_winner(bb);
+    }
+
+    return result;
 }
