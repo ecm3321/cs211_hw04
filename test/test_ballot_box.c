@@ -24,8 +24,9 @@ static void assert_election(const char* expected_winner, ...);
 // Test case functions (you need more!):
 static void three_candidates_tied(void),
             win_on_second_round(void),
-            example_from_wikipedia(void);
-
+            example_from_wikipedia(void),
+    win_on_third_round(void);
+ballot_box_t test_read_file(const char*);
 
 ///
 /// MAIN FUNCTION
@@ -36,6 +37,7 @@ int main(void)
     three_candidates_tied();
     win_on_second_round();
     example_from_wikipedia();
+    win_on_third_round();   
 }
 
 
@@ -84,6 +86,33 @@ static void example_from_wikipedia(void)
                     "a", "b", "c", "%",
                     "b", "c", "%",
             NULL);
+}
+
+static void win_on_third_round(void)
+{
+    assert_election("CAMPBELL",
+                    "abbott", "Borden", "Campbell", "%",
+                    "campbell", "abbott", "borden", "%",
+                    "borden", "campbell", "abbott", "%",
+                    "abbott", "Borden", "campbell", "%",
+                    "Campbell", "abbotT", "borden", "%",
+                    NULL);
+    assert_election("B",
+                    "a", "b", "c", "%",
+                    "a", "b", "c", "%",
+                    "b", "c", "%",
+            NULL);
+//    ballot_box_t test = test_read_file("Resources/ballot_new_test");          
+    //  assert_election("CAMPBELL", test);                                      
+    // bb_destroy(test);                                                        
+}
+
+ballot_box_t test_read_file(const char* file)
+{
+    FILE * fp = fopen(file,"r");
+    ballot_box_t result = read_ballot_box(fp);
+    fclose(fp);
+    return result;
 }
 
 
